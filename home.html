@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Planner</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="dashboard">
+
+  <!-- PANEL 1: TO-DO -->
+  <div class="panel">
+    <div class="panel-header">
+      <span class="panel-title todo-title">To-Do</span>
+      <span class="panel-badge">tasks</span>
+    </div>
+    <div class="panel-body">
+      <div class="todo-input-row">
+        <input class="todo-input" id="todo-input" type="text" placeholder="Add a new task…" maxlength="80"/>
+        <button class="btn" onclick="addTodo()">+ Add</button>
+      </div>
+      <div class="todo-filters">
+        <button class="filter-btn active" onclick="setFilter(this,'all')">All</button>
+        <button class="filter-btn" onclick="setFilter(this,'active')">Active</button>
+        <button class="filter-btn" onclick="setFilter(this,'done')">Done</button>
+      </div>
+      <ul class="todo-list" id="todo-list"></ul>
+      <div class="todo-count" id="todo-count"></div>
+      <div style="margin-top:14px;">
+        <button class="btn danger" onclick="clearDone()">Clear completed</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- PANEL 2: CLOCK -->
+  <div class="panel">
+    <div class="panel-header">
+      <span class="panel-title clock-title">Clock</span>
+      <span class="panel-badge">time</span>
+    </div>
+    <div class="panel-body">
+      <div class="clock-main">
+        <div class="clock-time">
+          <span id="clock-hm">00:00</span><span class="clock-seconds" id="clock-s">:00</span><span class="clock-ampm" id="clock-ampm"></span>
+        </div>
+        <div class="clock-date" id="clock-date">–</div>
+      </div>
+
+      <!-- HORO TIMER -->
+      <div class="section-label">Horo Timer</div>
+      <div class="horo-wrap">
+        <div class="horo-ring-container">
+          <svg class="horo-svg" viewBox="0 0 110 110" xmlns="http://www.w3.org/2000/svg">
+            <circle class="horo-track" cx="55" cy="55" r="50"/>
+            <circle class="horo-arc" id="horo-arc" cx="55" cy="55" r="50"/>
+          </svg>
+          <div class="horo-inner">
+            <div class="horo-time-big" id="horo-display">25:00</div>
+            <div class="horo-mode-label" id="horo-mode-label">focus</div>
+          </div>
+        </div>
+        <div class="horo-presets">
+          <button class="preset-btn active" onclick="horoPreset(this,25,5)">25/5</button>
+          <button class="preset-btn" onclick="horoPreset(this,50,10)">50/10</button>
+          <button class="preset-btn" onclick="horoPreset(this,90,15)">90/15</button>
+          <button class="preset-btn" onclick="horoPreset(this,15,5)">15/5</button>
+        </div>
+        <div class="horo-controls">
+          <button class="btn go" id="horo-btn" onclick="horoToggle()">Start</button>
+          <button class="btn" onclick="horoSkip()">Skip</button>
+          <button class="btn" onclick="horoReset()">Reset</button>
+        </div>
+        <div class="horo-sessions" id="horo-sessions">Session 1 · Focus</div>
+      </div>
+
+      <!-- WORK SESSION CHECKLIST -->
+      <div class="section-label">Work Session Checklist</div>
+      <div class="session-setup">
+        <label>Start</label>
+        <input class="session-num" type="time" id="sess-start" value="09:00"/>
+        <label>Blocks</label>
+        <input class="session-num" type="number" id="sess-blocks" value="6" min="1" max="16" style="width:46px"/>
+        <button class="btn" style="padding:6px 12px;font-size:0.7rem" onclick="buildChecklist()">Build</button>
+      </div>
+      <div class="session-list" id="session-list"></div>
+    </div>
+  </div>
+
+  <!-- PANEL 3: PLANNER -->
+  <div class="panel">
+    <div class="panel-header">
+      <span class="panel-title planner-title">Planner</span>
+      <span class="panel-badge">schedule</span>
+    </div>
+    <div class="panel-body">
+      <div class="planner-nav">
+        <button class="nav-btn" onclick="changeMonth(-1)">&#8249;</button>
+        <span class="month-label" id="month-label">–</span>
+        <button class="nav-btn" onclick="changeMonth(1)">&#8250;</button>
+      </div>
+      <div class="cal-grid" id="cal-grid"></div>
+
+      <div class="events-header">
+        <div class="section-label">Events — <span class="selected-date-label" id="selected-date-label">–</span></div>
+      </div>
+      <div class="event-input-row">
+        <input class="event-input" id="event-input" type="text" placeholder="Event name…" maxlength="60"/>
+        <input class="time-input" id="event-time" type="time"/>
+        <button class="btn" onclick="addEvent()">+</button>
+      </div>
+      <div class="event-list" id="event-list"></div>
+    </div>
+  </div>
+</div>
+
+
+
+<script src="lol.js"></script>
+
+</body>
+</html>
